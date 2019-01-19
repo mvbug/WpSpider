@@ -12,16 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class WebController {
 
-    @Autowired
-    private WpTermsService wpTermsService;
-
-
     @RequestMapping("/")
     @ResponseBody
     public void index(HttpServletResponse response,String name)  throws Exception {
-
-        System.out.println("name:"+name+"       count:"+wpTermsService.findTerms(name));
-
         response.sendRedirect("https://www.google.com");
     }
 
