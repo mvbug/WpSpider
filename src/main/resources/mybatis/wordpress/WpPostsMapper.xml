@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mvbug.spider.project.wordpress.wpPosts.mapper.WpPostsMapper">
+    
+    <resultMap type="WpPosts" id="WpPostsResult">
+        <result property="iD"    column="ID"    />
+        <result property="postAuthor"    column="post_author"    />
+        <result property="postDate"    column="post_date"    />
+        <result property="postDateGmt"    column="post_date_gmt"    />
+        <result property="postContent"    column="post_content"    />
+        <result property="postTitle"    column="post_title"    />
+        <result property="postExcerpt"    column="post_excerpt"    />
+        <result property="postStatus"    column="post_status"    />
+        <result property="commentStatus"    column="comment_status"    />
+        <result property="pingStatus"    column="ping_status"    />
+        <result property="postPassword"    column="post_password"    />
+        <result property="postName"    column="post_name"    />
+        <result property="toPing"    column="to_ping"    />
+        <result property="pinged"    column="pinged"    />
+        <result property="postModified"    column="post_modified"    />
+        <result property="postModifiedGmt"    column="post_modified_gmt"    />
+        <result property="postContentFiltered"    column="post_content_filtered"    />
+        <result property="postParent"    column="post_parent"    />
+        <result property="guid"    column="guid"    />
+        <result property="menuOrder"    column="menu_order"    />
+        <result property="postType"    column="post_type"    />
+        <result property="postMimeType"    column="post_mime_type"    />
+        <result property="commentCount"    column="comment_count"    />
+    </resultMap>
+	
+	<sql id="selectWpPostsVo">
+        select ID, post_author, post_date, post_date_gmt, post_content, post_title, post_excerpt, post_status, comment_status, ping_status, post_password, post_name, to_ping, pinged, post_modified, post_modified_gmt, post_content_filtered, post_parent, guid, menu_order, post_type, post_mime_type, comment_count from wp_posts
+    </sql>
+	
+    <select id="selectWpPostsList" parameterType="WpPosts" resultMap="WpPostsResult">
+        <include refid="selectWpPostsVo"/>
+        <where>  
+            <if test="iD != null and iD != ''"> and ID = #{iD}</if>
+             <if test="postAuthor != null and postAuthor != ''"> and post_author = #{postAuthor}</if>
+             <if test="postDate != null and postDate != ''"> and post_date = #{postDate}</if>
+             <if test="postDateGmt != null and postDateGmt != ''"> and post_date_gmt = #{postDateGmt}</if>
+             <if test="postContent != null and postContent != ''"> and post_content = #{postContent}</if>
+             <if test="postTitle != null and postTitle != ''"> and post_title = #{postTitle}</if>
+             <if test="postExcerpt != null and postExcerpt != ''"> and post_excerpt = #{postExcerpt}</if>
+             <if test="postStatus != null and postStatus != ''"> and post_status = #{postStatus}</if>
+             <if test="commentStatus != null and commentStatus != ''"> and comment_status = #{commentStatus}</if>
+             <if test="pingStatus != null and pingStatus != ''"> and ping_status = #{pingStatus}</if>
+             <if test="postPassword != null and postPassword != ''"> and post_password = #{postPassword}</if>
+             <if test="postName != null and postName != ''"> and post_name = #{postName}</if>
+             <if test="toPing != null and toPing != ''"> and to_ping = #{toPing}</if>
+             <if test="pinged != null and pinged != ''"> and pinged = #{pinged}</if>
+             <if test="postModified != null and postModified != ''"> and post_modified = #{postModified}</if>
+             <if test="postModifiedGmt != null and postModifiedGmt != ''"> and post_modified_gmt = #{postModifiedGmt}</if>
+             <if test="postContentFiltered != null and postContentFiltered != ''"> and post_content_filtered = #{postContentFiltered}</if>
+             <if test="postParent != null and postParent != ''"> and post_parent = #{postParent}</if>
+             <if test="guid != null and guid != ''"> and guid = #{guid}</if>
+             <if test="menuOrder != null and menuOrder != ''"> and menu_order = #{menuOrder}</if>
+             <if test="postType != null and postType != ''"> and post_type = #{postType}</if>
+             <if test="postMimeType != null and postMimeType != ''"> and post_mime_type = #{postMimeType}</if>
+             <if test="commentCount != null and commentCount != ''"> and comment_count = #{commentCount}</if>
+         </where>
+    </select>
+    
+    <select id="selectWpPostsById" parameterType="Long" resultMap="WpPostsResult">
+        <include refid="selectWpPostsVo"/>
+        where ID = #{iD}
+    </select>
+        
+    <insert id="insertWpPosts" parameterType="WpPosts">
+        insert into wp_posts
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="iD != null and iD != '' ">ID,</if>
+			<if test="postAuthor != null and postAuthor != '' ">post_author,</if>
+			<if test="postDate != null and postDate != '' ">post_date,</if>
+			<if test="postDateGmt != null and postDateGmt != '' ">post_date_gmt,</if>
+			<if test="postContent != null and postContent != '' ">post_content,</if>
+			<if test="postTitle != null and postTitle != '' ">post_title,</if>
+			<if test="postExcerpt != null and postExcerpt != '' ">post_excerpt,</if>
+			<if test="postStatus != null and postStatus != '' ">post_status,</if>
+			<if test="commentStatus != null and commentStatus != '' ">comment_status,</if>
+			<if test="pingStatus != null and pingStatus != '' ">ping_status,</if>
+			<if test="postPassword != null and postPassword != '' ">post_password,</if>
+			<if test="postName != null and postName != '' ">post_name,</if>
+			<if test="toPing != null and toPing != '' ">to_ping,</if>
+			<if test="pinged != null and pinged != '' ">pinged,</if>
+			<if test="postModified != null and postModified != '' ">post_modified,</if>
+			<if test="postModifiedGmt != null and postModifiedGmt != '' ">post_modified_gmt,</if>
+			<if test="postContentFiltered != null and postContentFiltered != '' ">post_content_filtered,</if>
+			<if test="postParent != null and postParent != '' ">post_parent,</if>
+			<if test="guid != null and guid != '' ">guid,</if>
+			<if test="menuOrder != null and menuOrder != '' ">menu_order,</if>
+			<if test="postType != null and postType != '' ">post_type,</if>
+			<if test="postMimeType != null and postMimeType != '' ">post_mime_type,</if>
+			<if test="commentCount != null and commentCount != '' ">comment_count,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="iD != null and iD != ''">#{iD},</if>
+			<if test="postAuthor != null and postAuthor != ''">#{postAuthor},</if>
+			<if test="postDate != null and postDate != ''">#{postDate},</if>
+			<if test="postDateGmt != null and postDateGmt != ''">#{postDateGmt},</if>
+			<if test="postContent != null and postContent != ''">#{postContent},</if>
+			<if test="postTitle != null and postTitle != ''">#{postTitle},</if>
+			<if test="postExcerpt != null and postExcerpt != ''">#{postExcerpt},</if>
+			<if test="postStatus != null and postStatus != ''">#{postStatus},</if>
+			<if test="commentStatus != null and commentStatus != ''">#{commentStatus},</if>
+			<if test="pingStatus != null and pingStatus != ''">#{pingStatus},</if>
+			<if test="postPassword != null and postPassword != ''">#{postPassword},</if>
+			<if test="postName != null and postName != ''">#{postName},</if>
+			<if test="toPing != null and toPing != ''">#{toPing},</if>
+			<if test="pinged != null and pinged != ''">#{pinged},</if>
+			<if test="postModified != null and postModified != ''">#{postModified},</if>
+			<if test="postModifiedGmt != null and postModifiedGmt != ''">#{postModifiedGmt},</if>
+			<if test="postContentFiltered != null and postContentFiltered != ''">#{postContentFiltered},</if>
+			<if test="postParent != null and postParent != ''">#{postParent},</if>
+			<if test="guid != null and guid != ''">#{guid},</if>
+			<if test="menuOrder != null and menuOrder != ''">#{menuOrder},</if>
+			<if test="postType != null and postType != ''">#{postType},</if>
+			<if test="postMimeType != null and postMimeType != ''">#{postMimeType},</if>
+			<if test="commentCount != null and commentCount != ''">#{commentCount},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateWpPosts" parameterType="WpPosts">
+        update wp_posts
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="postAuthor != null  ">post_author = #{postAuthor},</if>
+            <if test="postDate != null  ">post_date = #{postDate},</if>
+            <if test="postDateGmt != null  ">post_date_gmt = #{postDateGmt},</if>
+            <if test="postContent != null  and postContent != ''  ">post_content = #{postContent},</if>
+            <if test="postTitle != null  and postTitle != ''  ">post_title = #{postTitle},</if>
+            <if test="postExcerpt != null  and postExcerpt != ''  ">post_excerpt = #{postExcerpt},</if>
+            <if test="postStatus != null  and postStatus != ''  ">post_status = #{postStatus},</if>
+            <if test="commentStatus != null  and commentStatus != ''  ">comment_status = #{commentStatus},</if>
+            <if test="pingStatus != null  and pingStatus != ''  ">ping_status = #{pingStatus},</if>
+            <if test="postPassword != null  and postPassword != ''  ">post_password = #{postPassword},</if>
+            <if test="postName != null  and postName != ''  ">post_name = #{postName},</if>
+            <if test="toPing != null  and toPing != ''  ">to_ping = #{toPing},</if>
+            <if test="pinged != null  and pinged != ''  ">pinged = #{pinged},</if>
+            <if test="postModified != null  ">post_modified = #{postModified},</if>
+            <if test="postModifiedGmt != null  ">post_modified_gmt = #{postModifiedGmt},</if>
+            <if test="postContentFiltered != null  and postContentFiltered != ''  ">post_content_filtered = #{postContentFiltered},</if>
+            <if test="postParent != null  ">post_parent = #{postParent},</if>
+            <if test="guid != null  and guid != ''  ">guid = #{guid},</if>
+            <if test="menuOrder != null  ">menu_order = #{menuOrder},</if>
+            <if test="postType != null  and postType != ''  ">post_type = #{postType},</if>
+            <if test="postMimeType != null  and postMimeType != ''  ">post_mime_type = #{postMimeType},</if>
+            <if test="commentCount != null  ">comment_count = #{commentCount},</if>
+        </trim>
+        where ID = #{iD}
+    </update>
+
+	<delete id="deleteWpPostsById" parameterType="Long">
+        delete from wp_posts where ID = #{iD}
+    </delete>
+	
+    <delete id="deleteWpPostsByIds" parameterType="String">
+        delete from wp_posts where ID in 
+        <foreach item="iD" collection="array" open="(" separator="," close=")">
+            #{iD}
+        </foreach>
+    </delete>
+    
+</mapper>
